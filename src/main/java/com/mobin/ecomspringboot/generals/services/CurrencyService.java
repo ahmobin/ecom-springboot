@@ -22,7 +22,7 @@ public class CurrencyService {
 
     public Currency store(CurrencyRequest currencyReq){
         Currency currency = new Currency();
-        currency.setCurrency(currencyReq.getName());
+        currency.setCurrency(currencyReq.getName().toUpperCase());
         return currencyRepo.save(currency);
     }
 
@@ -33,9 +33,10 @@ public class CurrencyService {
 
     public Currency update(CurrencyRequest currencyRequest, int id){
         Currency update = new Currency();
-        update.setCurrency(currencyRequest.getName());
+        update.setCurrency(currencyRequest.getName().toUpperCase());
         update.setId(id);
-        return currencyRepo.save(update);
+        currencyRepo.save(update);
+        return currencyRepo.findById(id).get();
     }
 
     public void destroy(int id){
