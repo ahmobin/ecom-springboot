@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,12 +30,13 @@ public class CurrencyController {
 
 
     @PostMapping("/currencies")
-    public ResponseEntity<Currency> store(@RequestBody CurrencyRequest currencyRequest) throws Exception {
-        try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(currencyService.store(currencyRequest));
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
+    public Currency store(@Valid @RequestBody CurrencyRequest currencyRequest){
+//        try{
+            return currencyService.store(currencyRequest);
+//            return ResponseEntity.status(HttpStatus.CREATED).body(currencyService.store(currencyRequest));
+//        }catch (Exception e){
+//            throw new Exception(e.getMessage());
+//        }
     }
 
     @GetMapping("/currencies/{id}")
