@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.generals.services;
 
+import com.mobin.ecomspringboot.exceptions.DuplicateCurrencyException;
 import com.mobin.ecomspringboot.generals.entities.Currency;
 import com.mobin.ecomspringboot.generals.models.requests.CurrencyRequest;
 import com.mobin.ecomspringboot.generals.repositories.CurrencyRepository;
@@ -21,6 +22,8 @@ public class CurrencyService {
 
 
     public Currency store(CurrencyRequest currencyRequest){
+//        currencyValidation(currencyRequest.getName().toUpperCase());
+
         Currency currency = new Currency();
         currency.setCurrency(currencyRequest.getName().toUpperCase());
         return currencyRepo.save(currency);
@@ -32,6 +35,8 @@ public class CurrencyService {
     }
 
     public Currency update(CurrencyRequest currencyRequest, UUID id){
+//        currencyValidation(currencyRequest.getName().toUpperCase());
+
         Currency update = new Currency();
         update.setCurrency(currencyRequest.getName().toUpperCase());
         update.setId(id);
@@ -44,5 +49,8 @@ public class CurrencyService {
     }
 
 
+//    private void currencyValidation(String name){
+//        if(currencyRepo.findCurrencyByCurrency(name) != null)  throw new DuplicateCurrencyException("Currency name already exist");
+//    }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class CurrencyController {
 
 
     @PostMapping(ApiEndpoints.CURRENCIES_API)
-    public ResponseEntity<Currency> store(@RequestBody CurrencyRequest currencyRequest){
+    public ResponseEntity<Currency> store(@Valid @RequestBody CurrencyRequest currencyRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(currencyService.store(currencyRequest));
     }
 
@@ -38,7 +39,7 @@ public class CurrencyController {
     }
 
     @PutMapping(ApiEndpoints.CURRENCIES_UPDATE_API)
-    public ResponseEntity<Currency> update(@RequestBody CurrencyRequest currencyRequest, @PathVariable UUID id){
+    public ResponseEntity<Currency> update(@Valid @RequestBody CurrencyRequest currencyRequest, @PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(currencyService.update(currencyRequest, id));
     }
 

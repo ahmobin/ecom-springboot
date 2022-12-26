@@ -1,7 +1,9 @@
 package com.mobin.ecomspringboot.exceptions;
 
 import org.springframework.beans.ConversionNotSupportedException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +17,22 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-//    public GlobalExceptionHandler() {
-//        super();
-//    }
+    public GlobalExceptionHandler() {
+        super();
+    }
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -79,7 +86,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return super.handleMethodArgumentNotValid(ex, headers, status, request);
+        return new ResponseEntity<>(new ApiErrorModel(400, "BAD REQUEST", ex.getBindingResult().getFieldErrors()
+                .stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList())), HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -106,4 +114,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
+
+    @ExceptionHandler(DuplicateCurrencyException.class)
+    public ResponseEntity<ApiErrorModel> DuplicateEmailException(DuplicateCurrencyException ex) {
+        return new ResponseEntity<>(new ApiErrorModel(409, "Data Conflict", List.of(ex.getMessage())), HttpStatus.CONFLICT);
+    }
+
 }

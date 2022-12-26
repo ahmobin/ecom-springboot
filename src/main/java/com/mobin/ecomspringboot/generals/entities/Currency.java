@@ -26,7 +26,7 @@ public class Currency {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 32, nullable = false, unique = true)
     private String currency;
 
     @Column(name = "created_at", updatable = false)
