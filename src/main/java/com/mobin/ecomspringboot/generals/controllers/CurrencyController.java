@@ -3,69 +3,48 @@ package com.mobin.ecomspringboot.generals.controllers;
 import com.mobin.ecomspringboot.generals.entities.Currency;
 import com.mobin.ecomspringboot.generals.models.requests.CurrencyRequest;
 import com.mobin.ecomspringboot.generals.services.CurrencyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mobin.ecomspringboot.globals.apis.v1.ApiEndpoints;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequiredArgsConstructor
+@Validated
 public class CurrencyController {
 
-    @Autowired private CurrencyService currencyService;
+    private final CurrencyService currencyService;
 
-    @GetMapping("/currencies")
-    public ResponseEntity<List<Currency>> index() throws Exception {
-        try{
-            return ResponseEntity.of(Optional.of(currencyService.currencyList()));
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-
+    @GetMapping(ApiEndpoints.CURRENCIES_API)
+    public ResponseEntity<List<Currency>> index(){
+        return ResponseEntity.of(Optional.of(currencyService.currencyList()));
     }
 
 
-    @PostMapping("/currencies")
-    public Currency store(@Valid @RequestBody CurrencyRequest currencyRequest){
-//        try{
-            return currencyService.store(currencyRequest);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(currencyService.store(currencyRequest));
-//        }catch (Exception e){
-//            throw new Exception(e.getMessage());
-//        }
+    @PostMapping(ApiEndpoints.CURRENCIES_API)
+    public ResponseEntity<Currency> store(@RequestBody CurrencyRequest currencyRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(currencyService.store(currencyRequest));
     }
 
-    @GetMapping("/currencies/{id}")
-    public ResponseEntity<Currency> show(@PathVariable int id) throws Exception {
-        try{
-            return ResponseEntity.of(Optional.of(currencyService.show(id)));
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
+    @GetMapping(ApiEndpoints.SINGLE_CURRENCIES_API)
+    public ResponseEntity<Currency> show(@PathVariable UUID id) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(currencyService.show(id));
     }
 
-    @PutMapping("/currencies/{id}/update")
-    public ResponseEntity<Currency> update(@RequestBody CurrencyRequest currencyRequest, @PathVariable int id) throws Exception {
-        try{
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(currencyService.update(currencyRequest, id));
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-
+    @PutMapping(ApiEndpoints.CURRENCIES_UPDATE_API)
+    public ResponseEntity<Currency> update(@RequestBody CurrencyRequest currencyRequest, @PathVariable UUID id){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(currencyService.update(currencyRequest, id));
     }
 
-    @DeleteMapping("/currencies/{id}")
-    public ResponseEntity<Currency> delete(@PathVariable int id) throws Exception {
-        try{
-            currencyService.destroy(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-
+    @DeleteMapping(ApiEndpoints.SINGLE_CURRENCIES_API)
+    public ResponseEntity<Currency> delete(@PathVariable UUID id){
+        currencyService.destroy(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

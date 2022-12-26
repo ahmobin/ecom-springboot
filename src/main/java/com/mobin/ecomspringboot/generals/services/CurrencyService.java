@@ -6,8 +6,8 @@ import com.mobin.ecomspringboot.generals.repositories.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CurrencyService {
@@ -20,18 +20,18 @@ public class CurrencyService {
     }
 
 
-    public Currency store(CurrencyRequest currencyReq){
+    public Currency store(CurrencyRequest currencyRequest){
         Currency currency = new Currency();
-        currency.setCurrency(currencyReq.getName().toUpperCase());
+        currency.setCurrency(currencyRequest.getName().toUpperCase());
         return currencyRepo.save(currency);
     }
 
 
-    public Currency show(int id){
+    public Currency show(UUID id){
         return currencyRepo.findById(id).get();
     }
 
-    public Currency update(CurrencyRequest currencyRequest, int id){
+    public Currency update(CurrencyRequest currencyRequest, UUID id){
         Currency update = new Currency();
         update.setCurrency(currencyRequest.getName().toUpperCase());
         update.setId(id);
@@ -39,7 +39,7 @@ public class CurrencyService {
         return currencyRepo.findById(id).get();
     }
 
-    public void destroy(int id){
+    public void destroy(UUID id){
         currencyRepo.deleteById(id);
     }
 
