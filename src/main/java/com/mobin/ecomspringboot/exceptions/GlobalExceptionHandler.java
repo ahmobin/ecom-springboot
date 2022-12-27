@@ -25,6 +25,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -118,6 +119,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DuplicateCurrencyException.class)
     public ResponseEntity<ApiErrorModel> DuplicateEmailException(DuplicateCurrencyException ex) {
         return new ResponseEntity<>(new ApiErrorModel(409, "Data Conflict", List.of(ex.getMessage())), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiErrorModel> EntityNotFoundException(EntityNotFoundException ex) {
+        return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(ex.getMessage())), HttpStatus.NOT_FOUND);
     }
 
 }
