@@ -12,5 +12,8 @@ public class ApiEndpoints {
     public static final String STOCK_STATUSES_API = "/api/v1/stock-statuses";
     public static final String SINGLE_STOCK_STATUSES_API = "/api/v1/stock-statuses/{id}";
     public static final String STOCK_STATUSES_UPDATE_API = "/api/v1/stock-statuses/{id}/update";
+    public static final String PRODUCT_UNITS_API = "/api/v1/units";
+    public static final String SINGLE_PRODUCT_UNITS_API = "/api/v1/units/{id}";
+    public static final String PRODUCT_UNITS_UPDATE_API = "/api/v1/units/{id}/update";
 
 }
