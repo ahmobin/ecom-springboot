@@ -18,7 +18,6 @@ public class CategoryController {
 
     @PostMapping(ApiEndpoints.CATEGORIES_API)
     public String store(@RequestParam("file") MultipartFile file) throws IOException {
-        fileUploadHandler.fileUpload(file);
-        return "uploaded";
+        return fileUploadHandler.fileUpload(file);
     }
 }
