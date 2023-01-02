@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.inventory.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class SubCategory {
 
     @ManyToOne
     @JoinColumn(name="category_id")
+    @JsonIgnore
     private Category category;
 
     @Column(length = 128, nullable = false, unique = true)

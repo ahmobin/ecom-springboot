@@ -38,7 +38,7 @@ public class CategoryController {
 
     @GetMapping(ApiEndpoints.SINGLE_CATEGORIES_API)
     public ResponseEntity<Category> show(@PathVariable UUID id) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.show(id));
+        return ResponseEntity.ok(categoryService.show(id));
     }
 
     @PutMapping(ApiEndpoints.PRODUCT_CATEGORIES_UPDATE_API)
