@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -40,11 +41,14 @@ public class CategoryService {
     }
 
     public Category show(UUID id){
-        return categoryRepo.findById(id).get();
+        if (categoryRepo.findById(id).isPresent())
+            return categoryRepo.findById(id).get();
+        else
+            throw new EntityNotFoundException("Category Not Found");
     }
 
     public Category update(MultipartFile file, String name, UUID id) throws IOException {
-        categoryValidation(name);
+        categoryUpdateValidation(name, id);
         Category category = new Category();
         category.setName(name);
         category.setSlug(Slugable.toSlug(name));
@@ -63,5 +67,10 @@ public class CategoryService {
 
     private void categoryValidation(String name){
         if(categoryRepo.findByName(name) != null)  throw new DuplicateDataException("Category name already exist");
+    }
+
+    private void categoryUpdateValidation(String name, UUID id){
+        if (categoryRepo.existsByName(name) && !categoryRepo.findByName(name).getId().equals(id))
+            throw new DuplicateDataException("Category name already exist");
     }
 }

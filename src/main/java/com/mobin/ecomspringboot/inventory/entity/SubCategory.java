@@ -1,6 +1,5 @@
 package com.mobin.ecomspringboot.inventory.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,19 +10,23 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity(name = "categories")
-public class Category {
+@Entity(name = "sub_categories")
+public class SubCategory {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category;
 
     @Column(length = 128, nullable = false, unique = true)
     private String name;
@@ -43,7 +46,4 @@ public class Category {
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date updatedAt;
-
-    @OneToMany(mappedBy = "category")
-    private List<SubCategory> subCategories;
 }
