@@ -116,7 +116,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DuplicateDataException.class)
-    public ResponseEntity<ApiErrorModel> DuplicateEmailException(DuplicateDataException ex) {
+    public ResponseEntity<ApiErrorModel> DuplicateDataException(DuplicateDataException ex) {
         return new ResponseEntity<>(new ApiErrorModel(409, "Data Conflict", List.of(ex.getMessage())), HttpStatus.CONFLICT);
     }
 
