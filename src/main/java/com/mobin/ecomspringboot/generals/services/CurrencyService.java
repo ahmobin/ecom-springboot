@@ -1,6 +1,6 @@
 package com.mobin.ecomspringboot.generals.services;
 
-import com.mobin.ecomspringboot.exceptions.DuplicateCurrencyException;
+import com.mobin.ecomspringboot.exceptions.DuplicateDataException;
 import com.mobin.ecomspringboot.generals.entities.Currency;
 import com.mobin.ecomspringboot.generals.models.requests.CurrencyRequest;
 import com.mobin.ecomspringboot.generals.repositories.CurrencyRepository;
@@ -50,7 +50,7 @@ public class CurrencyService {
 
 
 //    private void currencyValidation(String name){
-//        if(currencyRepo.findCurrencyByCurrency(name) != null)  throw new DuplicateCurrencyException("Currency name already exist");
+//        if(currencyRepo.findCurrencyByCurrency(name) != null)  throw new DuplicateDataException("Currency name already exist");
 //    }
 
 }

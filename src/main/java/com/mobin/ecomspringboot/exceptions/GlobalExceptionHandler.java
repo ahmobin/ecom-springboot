@@ -3,7 +3,6 @@ package com.mobin.ecomspringboot.exceptions;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -116,10 +115,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    @ExceptionHandler(DuplicateCurrencyException.class)
-    public ResponseEntity<ApiErrorModel> DuplicateEmailException(DuplicateCurrencyException ex) {
+    @ExceptionHandler(DuplicateDataException.class)
+    public ResponseEntity<ApiErrorModel> DuplicateEmailException(DuplicateDataException ex) {
         return new ResponseEntity<>(new ApiErrorModel(409, "Data Conflict", List.of(ex.getMessage())), HttpStatus.CONFLICT);
     }
+
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiErrorModel> EntityNotFoundException(EntityNotFoundException ex) {
