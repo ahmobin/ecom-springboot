@@ -23,4 +23,8 @@ public class ApiEndpoints {
     public static final String SINGLE_SUB_CATEGORIES_API = "/api/v1/{categoryId}/sub-categories/{id}";
     public static final String PRODUCT_SUB_CATEGORIES_UPDATE_API = "/api/v1/{categoryId}/sub-categories/{id}/update";
 
+    public static final String BRANDS_API = "/api/v1/brands";
+    public static final String SINGLE_BRANDS_API = "/api/v1/brands/{id}";
+    public static final String BRANDS_UPDATE_API = "/api/v1/brands/{id}/update";
+
 }

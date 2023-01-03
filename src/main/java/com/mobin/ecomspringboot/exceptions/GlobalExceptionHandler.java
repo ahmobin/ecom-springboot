@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.exceptions;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.beans.TypeMismatchException;
@@ -123,6 +124,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiErrorModel> EntityNotFoundException(EntityNotFoundException ex) {
+        return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(ex.getMessage())), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FileUploadException.class)
+    public ResponseEntity<ApiErrorModel> FileUploadException(FileUploadException ex) {
         return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(ex.getMessage())), HttpStatus.NOT_FOUND);
     }
 
