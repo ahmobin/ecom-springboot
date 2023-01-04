@@ -15,6 +15,9 @@ public class ApiEndpoints {
     public static final String PRODUCT_UNITS_API = "/api/v1/units";
     public static final String SINGLE_PRODUCT_UNITS_API = "/api/v1/units/{id}";
     public static final String PRODUCT_UNITS_UPDATE_API = "/api/v1/units/{id}/update";
+    public static final String PRODUCT_ATTRIBUTES_API = "/api/v1/product-attributes";
+    public static final String SINGLE_PRODUCT_ATTRIBUTES_API = "/api/v1/product-attributes/{id}";
+    public static final String PRODUCT_ATTRIBUTES_UPDATE_API = "/api/v1/product-attributes/{id}/update";
     public static final String CATEGORIES_API = "/api/v1/categories";
     public static final String SINGLE_CATEGORIES_API = "/api/v1/categories/{id}";
     public static final String PRODUCT_CATEGORIES_UPDATE_API = "/api/v1/categories/{id}/update";

@@ -20,8 +20,8 @@ import java.util.UUID;
 @Component
 public class FileUploadHandler {
 
-//    public final String UPLOAD_DIRECTORY = "/home/mobin/Projects/java/ecom-spring-boot/src/main/resources/static/uploads";
-    public final String DYNAMIC_UPLOAD_DIRECTORY = new ClassPathResource("static/uploads").getFile().getAbsolutePath();
+    public final String DYNAMIC_UPLOAD_DIRECTORY = "/home/mobin/Projects/java/ecom-spring-boot/src/main/resources/static/uploads";
+//    public final String DYNAMIC_UPLOAD_DIRECTORY = new ClassPathResource("static/uploads").getFile().getAbsolutePath();
 
     public FileUploadHandler() throws IOException {
     }
