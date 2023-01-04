@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.generals.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,26 +11,28 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity(name = "product_attributes")
-public class ProductAttribute {
-
+@Entity(name = "product_attribute_values")
+public class ProductAttributeValue {
     @Id
     @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 128)
-    private String name;
+    @ManyToOne
+    @JsonIgnore
+    private ProductAttribute productAttribute;
 
-    @OneToMany(mappedBy = "productAttribute")
-    private List<ProductAttributeValue> productAttributeValues;
+    @Column(nullable = false, length = 128)
+    private String value;
+
+    @Column(length = 32)
+    private String code;
 
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

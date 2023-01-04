@@ -3,8 +3,8 @@ package com.mobin.ecomspringboot.generals.services;
 import com.mobin.ecomspringboot.exceptions.DuplicateDataException;
 import com.mobin.ecomspringboot.generals.entities.ProductAttribute;
 import com.mobin.ecomspringboot.generals.models.requests.ProductAttributeRequest;
-import com.mobin.ecomspringboot.generals.models.requests.ProductStatusRequest;
 import com.mobin.ecomspringboot.generals.repositories.ProductAttributeRepository;
+import com.mobin.ecomspringboot.globals.helpers.StringManageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class ProductAttributeService {
 
     public ProductAttribute store(ProductAttributeRequest productAttributeRequest){
         ProductAttribute productAttribute = new ProductAttribute();
-        productAttribute.setName(capitalize(productAttributeRequest.getName()));
+        productAttribute.setName(StringManageable.capitalize(productAttributeRequest.getName()));
         return productAttrRepo.save(productAttribute);
     }
 
@@ -39,7 +39,7 @@ public class ProductAttributeService {
         productAttrUpdateValidate(id, productAttributeRequest.getName());
 
         ProductAttribute productAttribute = new ProductAttribute();
-        productAttribute.setName(capitalize(productAttributeRequest.getName()));
+        productAttribute.setName(StringManageable.capitalize(productAttributeRequest.getName()));
         productAttribute.setId(id);
         return productAttrRepo.save(productAttribute);
     }
@@ -48,12 +48,6 @@ public class ProductAttributeService {
     public void delete(UUID id){
         isProductAttrExist(id);
         productAttrRepo.deleteById(id);
-    }
-
-    private String capitalize(String str)
-    {
-        if(str == null || str.length()<=1) return str;
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
 
