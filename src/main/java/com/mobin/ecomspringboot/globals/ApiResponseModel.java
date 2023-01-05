@@ -1,6 +1,5 @@
 package com.mobin.ecomspringboot.globals;
 
-import com.mobin.ecomspringboot.generals.entities.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +18,6 @@ public class ApiResponseModel {
 
     private List<Object> data;
 
-    public ApiResponseModel(int i, String productStatusesData, List<ProductStatus> productStatusList, HttpStatus badRequest) {
+    public ApiResponseModel(int i, String statusData, List<Object> objects, HttpStatus badRequest) {
     }
 }

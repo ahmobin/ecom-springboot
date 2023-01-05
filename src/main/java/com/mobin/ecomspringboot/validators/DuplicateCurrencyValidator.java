@@ -1,7 +1,7 @@
 package com.mobin.ecomspringboot.validators;
 
 import com.mobin.ecomspringboot.annotations.DuplicateCurrency;
-import com.mobin.ecomspringboot.generals.repositories.CurrencyRepository;
+import com.mobin.ecomspringboot.v1.generals.repositories.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;

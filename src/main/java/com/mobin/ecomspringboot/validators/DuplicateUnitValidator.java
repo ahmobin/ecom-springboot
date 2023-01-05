@@ -1,7 +1,7 @@
 package com.mobin.ecomspringboot.validators;
 
 import com.mobin.ecomspringboot.annotations.DuplicateUnit;
-import com.mobin.ecomspringboot.generals.repositories.UnitRepository;
+import com.mobin.ecomspringboot.v1.generals.repositories.UnitRepository;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;

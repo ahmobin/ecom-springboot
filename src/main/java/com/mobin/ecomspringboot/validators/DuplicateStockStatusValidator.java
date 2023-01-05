@@ -1,7 +1,7 @@
 package com.mobin.ecomspringboot.validators;
 
 import com.mobin.ecomspringboot.annotations.DuplicateStockStatus;
-import com.mobin.ecomspringboot.generals.repositories.StockStatusRepository;
+import com.mobin.ecomspringboot.v1.generals.repositories.StockStatusRepository;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;
