@@ -17,15 +17,12 @@ public class ProductSeeder {
     private final ProductRepository productRepo;
     private final ProductImageRepository productImgRepo;
     private final ProductVariationRepository productVarRepo;
-    private final ProductStatusRepository productStatusRepo;
-    private final StockStatusRepository stockStatusRepo;
-    private final CurrencyRepository currencyRepo;
     private final UnitRepository unitRepo;
     private final CategoryRepository categoryRepo;
     private final SubCategoryRepository subCategoryRepo;
     private final BrandRepository brandRepo;
-    private final ProductAttributeRepository productAttributeRepo;
-    private final ProductAttrValueRepository productAttrValueRepo;
+    private final ColorRepository colorRepo;
+    private final SizeRepository sizeRepo;
 
     public void simpleProduct(){
         Product product = new Product();
@@ -66,10 +63,8 @@ public class ProductSeeder {
 
         ProductVariation productVariation = new ProductVariation();
         productVariation.setProduct(saveProduct);
-        productVariation.setProductAttribute(productAttributeRepo.findByName("Color"));
-        productVariation.setProductAttributeValue(productAttrValueRepo.findByValue("Green").get());
-        productVariation.setProductAttribute(productAttributeRepo.findByName("Size"));
-        productVariation.setProductAttributeValue(productAttrValueRepo.findByValue("Long").get());
+        productVariation.setColor(colorRepo.findByColor("Black").get());
+        productVariation.setSize(sizeRepo.findBySize("Long").get());
         productVariation.setQuantity(50);
         productVariation.setPurchasePrice(4050.0);
         productVariation.setRegularPrice(4550.0);
@@ -79,10 +74,8 @@ public class ProductSeeder {
 
         ProductVariation productVariation2 = new ProductVariation();
         productVariation2.setProduct(saveProduct);
-        productVariation2.setProductAttribute(productAttributeRepo.findByName("Color"));
-        productVariation2.setProductAttributeValue(productAttrValueRepo.findByValue("Green").get());
-        productVariation2.setProductAttribute(productAttributeRepo.findByName("Size"));
-        productVariation2.setProductAttributeValue(productAttrValueRepo.findByValue("Medium").get());
+        productVariation2.setColor(colorRepo.findByColor("Black").get());
+        productVariation2.setSize(sizeRepo.findBySize("Medium").get());
         productVariation2.setQuantity(50);
         productVariation2.setPurchasePrice(4050.0);
         productVariation2.setRegularPrice(4550.0);

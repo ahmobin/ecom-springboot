@@ -14,7 +14,8 @@ public class StartupUtility implements CommandLineRunner {
     private final BrandSeeder brandSeeder;
     private final CurrencySeeder currencySeeder;
     private final UnitSeeder unitSeeder;
-    private final ProductAttrSeeder productAttrSeeder;
+    private final ColorSeeder colorSeeder;
+    private final SizeSeeder sizeSeeder;
     private final ProductStatusSeeder productStatusSeeder;
     private final StockStatusSeeder stockStatusSeeder;
     private final ProductSeeder productSeeder;
@@ -36,7 +37,9 @@ public class StartupUtility implements CommandLineRunner {
 
         stockStatusSeeder.createStockStatus();
 
-        productAttrSeeder.createAttr();
+        colorSeeder.createColors();
+
+        sizeSeeder.createSizes();
 
         productSeeder.simpleProduct();
 

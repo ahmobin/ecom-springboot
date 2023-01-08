@@ -1,8 +1,8 @@
 package com.mobin.ecomspringboot.v1.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mobin.ecomspringboot.v1.generals.entities.ProductAttribute;
-import com.mobin.ecomspringboot.v1.generals.entities.ProductAttributeValue;
+import com.mobin.ecomspringboot.v1.generals.entities.Color;
+import com.mobin.ecomspringboot.v1.generals.entities.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,22 +31,21 @@ public class ProductVariation {
     private Product product;
 
     @ManyToOne
-    private ProductAttribute productAttribute;
+    private Color color;
 
     @ManyToOne
-    private ProductAttributeValue productAttributeValue;
+    private Size size;
 
     @Column(nullable = false)
     private Integer quantity;
 
-
-    @Column(name = "purchase_price", precision = 12, scale = 2)
+    @Column(name = "purchase_price", precision = 14, scale = 2)
     private Double purchasePrice;
 
-    @Column(name = "regular_price",nullable = false, precision = 12, scale = 2)
+    @Column(name = "regular_price", precision = 14, scale = 2)
     private Double regularPrice;
 
-    @Column(name = "discount_price", precision = 12, scale = 2)
+    @Column(name = "discount_price", precision = 14, scale = 2)
     private Double discountPrice;
 
     @Column(name = "created_at", updatable = false)

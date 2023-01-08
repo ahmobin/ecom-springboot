@@ -1,11 +1,9 @@
 package com.mobin.ecomspringboot.v1.generals.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mobin.ecomspringboot.v1.inventory.entity.Product;
 import com.mobin.ecomspringboot.v1.inventory.entity.ProductVariation;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,22 +17,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity(name = "product_attributes")
-public class ProductAttribute {
-
+@Entity(name = "colors")
+public class Color {
     @Id
     @GeneratedValue(generator = "UUID")
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(nullable = false, unique = true, length = 128)
-    private String name;
+    @Column(length = 32, nullable = false, unique = true)
+    private String color;
 
-    @OneToMany(mappedBy = "productAttribute")
-    @JsonIgnore
-    private List<ProductAttributeValue> productAttributeValues;
+    @Column(length = 16)
+    private String code;
 
-    @OneToMany(mappedBy = "productAttribute")
+    @OneToMany(mappedBy = "color")
     @JsonIgnore
     private List<ProductVariation> productVariations;
 

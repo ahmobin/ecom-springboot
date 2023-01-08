@@ -1,6 +1,5 @@
 package com.mobin.ecomspringboot.v1.generals.models.requests;
 
-import com.mobin.ecomspringboot.annotations.DuplicateProductAttribute;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,5 @@ public class ProductAttributeRequest {
     @NotNull
     @NotBlank
     @NotEmpty
-    @DuplicateProductAttribute
     private String name;
 }
