@@ -14,8 +14,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -57,13 +57,20 @@ public class Product {
     @Column(nullable = false)
     private String slug;
 
-    @Column(name = "regular_price")
-    private DecimalFormat regularPrice;
+    @Column(name = "purchase_price", precision = 14, scale = 2)
+    private Double purchasePrice;
 
-    @Column(name = "discount_price")
-    private DecimalFormat discountPrice;
+    @Column(name = "regular_price", precision = 14, scale = 2)
+    private Double regularPrice;
+
+    @Column(name = "discount_price", precision = 14, scale = 2)
+    private Double discountPrice;
 
     private Integer quantity;
+
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductVariation> productVariation;
 
     @ManyToOne
     @JsonIgnore

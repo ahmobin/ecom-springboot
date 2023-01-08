@@ -15,6 +15,7 @@ public interface ProductAttrValueRepository extends JpaRepository<ProductAttribu
     Optional<ProductAttributeValue> findByProductAttributeIdAndId(UUID productAttrId, UUID id);
 
     Optional<ProductAttributeValue> findByProductAttributeIdAndValue(UUID productAttrId, String value);
+    Optional<ProductAttributeValue> findByValue(String value);
 
     boolean existsByValueAndProductAttributeId(String value, UUID productAttributeId);
 }
