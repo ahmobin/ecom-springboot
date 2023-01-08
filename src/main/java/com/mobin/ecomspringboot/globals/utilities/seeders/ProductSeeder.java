@@ -1,6 +1,8 @@
 package com.mobin.ecomspringboot.globals.utilities.seeders;
 
-import com.mobin.ecomspringboot.v1.generals.entities.ProductAttributeValue;
+import com.mobin.ecomspringboot.globals.enumerates.Currency;
+import com.mobin.ecomspringboot.globals.enumerates.ProductStatus;
+import com.mobin.ecomspringboot.globals.enumerates.ProductStock;
 import com.mobin.ecomspringboot.v1.generals.repositories.*;
 import com.mobin.ecomspringboot.v1.inventory.entity.Product;
 import com.mobin.ecomspringboot.v1.inventory.entity.ProductImage;
@@ -29,9 +31,9 @@ public class ProductSeeder {
         Product product = new Product();
         product.setAdvanced(false);
         product.setFeatured(false);
-        product.setProductStatus(productStatusRepo.findByStatus("Active").get());
-        product.setStockStatus(stockStatusRepo.findByStatus("In Stock").get());
-        product.setCurrency(currencyRepo.findByCurrency("BDT"));
+        product.setProductStatus(ProductStatus.ACTIVE);
+        product.setStockStatus(ProductStock.IN_STOCK);
+        product.setCurrency(Currency.BDT);
         product.setUnit(unitRepo.findByName("Piece").get());
         product.setCategory(categoryRepo.findByName("Category Name 1"));
         product.setSubCategory(subCategoryRepo.findByName("Sub Category Name 1"));
@@ -50,9 +52,9 @@ public class ProductSeeder {
         Product product = new Product();
         product.setAdvanced(true);
         product.setFeatured(true);
-        product.setProductStatus(productStatusRepo.findByStatus("Active").get());
-        product.setStockStatus(stockStatusRepo.findByStatus("In Stock").get());
-        product.setCurrency(currencyRepo.findByCurrency("BDT"));
+        product.setProductStatus(ProductStatus.ACTIVE);
+        product.setStockStatus(ProductStock.IN_STOCK);
+        product.setCurrency(Currency.BDT);
         product.setUnit(unitRepo.findByName("Piece").get());
         product.setCategory(categoryRepo.findByName("Category Name 1"));
         product.setSubCategory(subCategoryRepo.findByName("Sub Category Name 1"));

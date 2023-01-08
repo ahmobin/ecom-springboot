@@ -1,8 +1,8 @@
 package com.mobin.ecomspringboot.v1.inventory.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mobin.ecomspringboot.v1.generals.entities.Currency;
-import com.mobin.ecomspringboot.v1.generals.entities.ProductStatus;
+import com.mobin.ecomspringboot.globals.enumerates.Currency;
+import com.mobin.ecomspringboot.globals.enumerates.ProductStatus;
+import com.mobin.ecomspringboot.globals.enumerates.ProductStock;
 import com.mobin.ecomspringboot.v1.generals.entities.StockStatus;
 import com.mobin.ecomspringboot.v1.generals.entities.Unit;
 import lombok.AllArgsConstructor;
@@ -39,9 +39,8 @@ public class Product {
     @ManyToOne
     private Brand brand;
 
-    @ManyToOne
-    private Currency currency;
-
+    @Column(nullable = false)
+    private Enum<Currency> currency;
 
     @ManyToOne
     private Unit unit;
@@ -70,11 +69,11 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages;
 
-    @ManyToOne
-    private ProductStatus productStatus;
+    @Column(name = "product_status", nullable = false)
+    private Enum<ProductStatus> productStatus;
 
-    @ManyToOne
-    private StockStatus stockStatus;
+    @Column(name = "stock_status", nullable = false)
+    private Enum<ProductStock> stockStatus;
 
     @Column(name = "is_featured", nullable = false)
     private boolean isFeatured = false;
