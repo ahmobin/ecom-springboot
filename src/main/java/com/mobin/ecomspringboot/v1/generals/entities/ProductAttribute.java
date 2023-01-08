@@ -1,5 +1,7 @@
 package com.mobin.ecomspringboot.v1.generals.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mobin.ecomspringboot.v1.inventory.entity.ProductVariation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +31,12 @@ public class ProductAttribute {
     private String name;
 
     @OneToMany(mappedBy = "productAttribute")
+    @JsonIgnore
     private List<ProductAttributeValue> productAttributeValues;
+
+    @OneToMany(mappedBy = "productAttribute")
+    @JsonIgnore
+    private List<ProductVariation> productVariations;
 
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

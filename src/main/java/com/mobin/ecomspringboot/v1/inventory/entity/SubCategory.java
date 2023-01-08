@@ -41,6 +41,7 @@ public class SubCategory {
     private String image;
 
     @OneToMany(mappedBy = "subCategory")
+    @JsonIgnore
     private List<Product> products;
 
     @Column(name = "created_at", updatable = false)

@@ -31,24 +31,19 @@ public class Product {
     private UUID id;
 
     @ManyToOne
-    @JsonIgnore
     private Category category;
 
     @ManyToOne
-    @JsonIgnore
     private SubCategory subCategory;
 
     @ManyToOne
-    @JsonIgnore
     private Brand brand;
 
     @ManyToOne
-    @JsonIgnore
     private Currency currency;
 
 
     @ManyToOne
-    @JsonIgnore
     private Unit unit;
 
     @Column(nullable = false)
@@ -72,12 +67,13 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<ProductVariation> productVariation;
 
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> productImages;
+
     @ManyToOne
-    @JsonIgnore
     private ProductStatus productStatus;
 
     @ManyToOne
-    @JsonIgnore
     private StockStatus stockStatus;
 
     @Column(name = "is_featured", nullable = false)

@@ -32,5 +32,8 @@ public class ApiEndpoints {
     public static final String BRANDS_API = "/api/v1/brands";
     public static final String SINGLE_BRANDS_API = "/api/v1/brands/{id}";
     public static final String BRANDS_UPDATE_API = "/api/v1/brands/{id}/update";
+    public static final String PRODUCTS_API = "/api/v1/products";
+    public static final String SINGLE_PRODUCTS_API = "/api/v1/products/{id}";
+    public static final String PRODUCTS_UPDATE_API = "/api/v1/products/{id}/update";
 
 }

@@ -1,6 +1,7 @@
 package com.mobin.ecomspringboot.v1.inventory.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,7 @@ public class Category {
     private String image;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Product> products;
 
     @Column(name = "created_at", updatable = false)
@@ -48,5 +50,6 @@ public class Category {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<SubCategory> subCategories;
 }

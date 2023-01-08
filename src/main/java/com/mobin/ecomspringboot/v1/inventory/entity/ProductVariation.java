@@ -31,11 +31,9 @@ public class ProductVariation {
     private Product product;
 
     @ManyToOne
-    @JsonIgnore
     private ProductAttribute productAttribute;
 
     @ManyToOne
-    @JsonIgnore
     private ProductAttributeValue productAttributeValue;
 
     @Column(nullable = false)

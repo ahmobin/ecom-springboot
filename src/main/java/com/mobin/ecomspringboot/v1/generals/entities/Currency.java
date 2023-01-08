@@ -1,6 +1,7 @@
 package com.mobin.ecomspringboot.v1.generals.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mobin.ecomspringboot.v1.inventory.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,9 +29,11 @@ public class Currency {
     private UUID id;
 
     @Column(length = 32, nullable = false, unique = true)
+    @JsonIgnore
     private String currency;
 
     @OneToMany(mappedBy = "currency")
+    @JsonIgnore
     private List<Product> products;
 
     @Column(name = "created_at", updatable = false)

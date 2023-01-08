@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.v1.inventory.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class Brand {
     private String image;
 
     @OneToMany(mappedBy = "brand")
+    @JsonIgnore
     private List<Product> products;
 
     @Column(name = "created_at", updatable = false)

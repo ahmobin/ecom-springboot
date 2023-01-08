@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.v1.generals.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mobin.ecomspringboot.v1.inventory.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Unit {
     private String name;
 
     @OneToMany(mappedBy = "unit")
+    @JsonIgnore
     private List<Product> products;
 
 
