@@ -13,11 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ApiResponseModel {
-    private int code;
     private String message;
 
     private List<Object> data;
-
-    public ApiResponseModel(int i, String statusData, List<Object> objects, HttpStatus badRequest) {
-    }
 }

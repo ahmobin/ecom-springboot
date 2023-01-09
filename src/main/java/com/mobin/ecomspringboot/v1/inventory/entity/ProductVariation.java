@@ -1,8 +1,6 @@
 package com.mobin.ecomspringboot.v1.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mobin.ecomspringboot.v1.generals.entities.Color;
-import com.mobin.ecomspringboot.v1.generals.entities.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,11 +28,8 @@ public class ProductVariation {
     @JsonIgnore
     private Product product;
 
-    @ManyToOne
-    private Color color;
-
-    @ManyToOne
-    private Size size;
+    @Column(columnDefinition = "TEXT")
+    private String attributes;
 
     @Column(nullable = false)
     private Integer quantity;

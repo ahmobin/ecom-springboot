@@ -1,7 +1,5 @@
 package com.mobin.ecomspringboot.globals.utilities.seeders;
 
-import com.mobin.ecomspringboot.v1.generals.entities.Size;
-import com.mobin.ecomspringboot.v1.generals.repositories.SizeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
