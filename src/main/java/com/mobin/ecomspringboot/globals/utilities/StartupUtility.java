@@ -12,19 +12,13 @@ public class StartupUtility implements CommandLineRunner {
 
     private final CategorySeeder categorySeeder;
     private final BrandSeeder brandSeeder;
-    private final CurrencySeeder currencySeeder;
     private final UnitSeeder unitSeeder;
-    private final ColorSeeder colorSeeder;
-    private final SizeSeeder sizeSeeder;
-    private final ProductStatusSeeder productStatusSeeder;
-    private final StockStatusSeeder stockStatusSeeder;
+    private final AttributeSeeder attributeSeeder;
     private final ProductSeeder productSeeder;
     @Override
     public void run(String... args) throws Exception {
 
         brandSeeder.createBrand();
-
-        currencySeeder.createCurrencies();
 
         Category category = categorySeeder.createCategory(1);
         for (int i = 1; i<3; i++){
@@ -33,16 +27,10 @@ public class StartupUtility implements CommandLineRunner {
 
         unitSeeder.createUnits();
 
-        productStatusSeeder.createProductStatus();
+        attributeSeeder.createAttrsWithValue();
 
-        stockStatusSeeder.createStockStatus();
+        productSeeder.simpleProductCreate();
 
-        colorSeeder.createColors();
-
-        sizeSeeder.createSizes();
-
-        productSeeder.simpleProduct();
-
-        productSeeder.advancedProduct();
+        productSeeder.advanceProductCreate();
     }
 }

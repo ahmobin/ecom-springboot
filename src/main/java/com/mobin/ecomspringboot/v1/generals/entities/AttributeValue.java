@@ -18,11 +18,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity(name = "product_attribute_values")
+@Entity(name = "attribute_values")
 public class AttributeValue {
     @Id
     @GeneratedValue(generator = "UUID")
-    @Type(type = "char-uuid")
+    @Type(type = "uuid-char")
     private UUID id;
 
     @ManyToOne

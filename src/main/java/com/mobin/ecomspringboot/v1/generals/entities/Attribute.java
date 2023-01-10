@@ -19,22 +19,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity(name = "product_attributes")
+@Entity(name = "attributes")
 public class Attribute {
     @Id
     @GeneratedValue(generator = "UUID")
-    @Type(type = "char-uuid")
+    @Type(type = "uuid-char")
     private UUID id;
 
     @Column(length = 128, nullable = false)
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "attribute")
     private List<AttributeValue> attributeValues;
-
-    @ManyToOne
-    @JsonIgnore
-    private Product product;
 
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

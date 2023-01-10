@@ -3,7 +3,6 @@ package com.mobin.ecomspringboot.v1.inventory.entity;
 import com.mobin.ecomspringboot.globals.enumerates.Currency;
 import com.mobin.ecomspringboot.globals.enumerates.ProductStatus;
 import com.mobin.ecomspringboot.globals.enumerates.ProductStock;
-import com.mobin.ecomspringboot.v1.generals.entities.StockStatus;
 import com.mobin.ecomspringboot.v1.generals.entities.Unit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,7 +39,7 @@ public class Product {
     private Brand brand;
 
     @Column(nullable = false)
-    private Enum<Currency> currency;
+    private String currency;
 
     @ManyToOne
     private Unit unit;
@@ -70,10 +69,10 @@ public class Product {
     private List<ProductImage> productImages;
 
     @Column(name = "product_status", nullable = false)
-    private Enum<ProductStatus> productStatus;
+    private String productStatus;
 
     @Column(name = "stock_status", nullable = false)
-    private Enum<ProductStock> stockStatus;
+    private String stockStatus;
 
     @Column(name = "is_featured", nullable = false)
     private boolean isFeatured = false;
