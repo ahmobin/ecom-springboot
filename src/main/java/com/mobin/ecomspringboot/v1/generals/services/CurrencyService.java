@@ -4,6 +4,7 @@ import com.mobin.ecomspringboot.exceptions.DuplicateDataException;
 import com.mobin.ecomspringboot.v1.generals.entities.Currency;
 import com.mobin.ecomspringboot.v1.generals.models.requests.CurrencyRequest;
 import com.mobin.ecomspringboot.v1.generals.repositories.CurrencyRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class CurrencyService {
-
-    @Autowired private CurrencyRepository currencyRepo;
-
+    private final CurrencyRepository currencyRepo;
 
     public List<Currency> currencyList(){
         return currencyRepo.findAll();

@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface AttributeRepository extends JpaRepository<Attribute, UUID> {
     Optional<Attribute> findByName(String name);
+
+    boolean existsByName(String name);
 }

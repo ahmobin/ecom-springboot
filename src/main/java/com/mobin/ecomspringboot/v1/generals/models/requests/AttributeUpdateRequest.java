@@ -14,10 +14,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Setter
 @Getter
-public class ProductAttributeRequest {
+public class AttributeUpdateRequest {
     @NotNull
     @NotBlank
     @NotEmpty
-    @DuplicateAttribute
     private String name;
 }
