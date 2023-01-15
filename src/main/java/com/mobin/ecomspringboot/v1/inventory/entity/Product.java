@@ -80,8 +80,8 @@ public class Product {
     @Column(name = "is_advanced", nullable = false)
     private boolean isAdvanced = false;
 
-    @Column(length = 255, nullable = false)
-    private String thumb_image;
+    @Column(length = 255, nullable = false, name = "thumb_image")
+    private String thumbImage;
 
     @Column(name = "created_at", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

@@ -18,19 +18,19 @@ public class StartupUtility implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        brandSeeder.createBrand();
-
-        Category category = categorySeeder.createCategory(1);
-        for (int i = 1; i<3; i++){
-            categorySeeder.createSubCategory(i, category);
-        }
-
-        unitSeeder.createUnits();
-
-        attributeSeeder.createAttrsWithValue();
-
-        productSeeder.simpleProductCreate();
-
-        productSeeder.advanceProductCreate();
+//        brandSeeder.createBrand();
+//
+//        Category category = categorySeeder.createCategory(1);
+//        for (int i = 1; i<3; i++){
+//            categorySeeder.createSubCategory(i, category);
+//        }
+//
+//        unitSeeder.createUnits();
+//
+//        attributeSeeder.createAttrsWithValue();
+//
+//        productSeeder.simpleProductCreate();
+//
+//        productSeeder.advanceProductCreate();
     }
 }

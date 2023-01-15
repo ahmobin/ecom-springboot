@@ -51,7 +51,7 @@ public class ProductSeeder {
         simpleProduct.setQuantity(50);
         simpleProduct.setProductStatus(ProductStatus.ACTIVE.toString());
         simpleProduct.setStockStatus(ProductStock.IN_STOCK.toString());
-        simpleProduct.setThumb_image("http://www.onlylondon.properties/application/modules/themes/views/default/assets/images/image-placeholder.png");
+        simpleProduct.setThumbImage("http://www.onlylondon.properties/application/modules/themes/views/default/assets/images/image-placeholder.png");
         attachImages(prodRepo.save(simpleProduct));
     }
 
@@ -68,7 +68,7 @@ public class ProductSeeder {
         advanceProduct.setStockStatus(ProductStock.IN_STOCK.toString());
         advanceProduct.setFeatured(true);
         advanceProduct.setAdvanced(true);
-        advanceProduct.setThumb_image("http://www.onlylondon.properties/application/modules/themes/views/default/assets/images/image-placeholder.png");
+        advanceProduct.setThumbImage("http://www.onlylondon.properties/application/modules/themes/views/default/assets/images/image-placeholder.png");
         Product save = prodRepo.save(advanceProduct);
 
         Attribute attribute1 = attrRepo.findByName("Color").orElseThrow();
