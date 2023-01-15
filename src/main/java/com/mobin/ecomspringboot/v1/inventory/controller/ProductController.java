@@ -50,7 +50,13 @@ public class ProductController {
                                          @RequestParam boolean isFeature,
                                          @RequestParam boolean isAdvance,
                                          @Valid @NotNull @RequestParam MultipartFile thumbImage,
-                                         @RequestParam List<MultipartFile> moreImages
+                                         @RequestParam List<MultipartFile> moreImages,
+                                         @RequestParam List<String> attrName,
+                                         @RequestParam List<String> attrValue,
+                                         @RequestParam List<Double> advPurchasePrice,
+                                         @RequestParam List<Double> advRegularPrice,
+                                         @RequestParam List<Double> advDiscountPrice,
+                                         @RequestParam List<Integer> advQuantity
     ) throws IOException {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(
@@ -69,7 +75,13 @@ public class ProductController {
                 isFeature,
                 isAdvance,
                 thumbImage,
-                moreImages
+                moreImages,
+                attrName,
+                attrValue,
+                advPurchasePrice,
+                advRegularPrice,
+                advDiscountPrice,
+                advQuantity
                 ));
     }
 }
