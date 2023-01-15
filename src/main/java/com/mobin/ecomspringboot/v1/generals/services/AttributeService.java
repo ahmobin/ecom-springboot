@@ -24,6 +24,7 @@ public class AttributeService {
 
 
     public Attribute store(ProductAttributeRequest attributeRequest){
+        isExist(attributeRequest.getName());
         Attribute attribute = new Attribute();
         attribute.setName(StringManageable.capitalize(attributeRequest.getName()));
         return attrRepo.save(attribute);
@@ -35,7 +36,6 @@ public class AttributeService {
 
 
     public Attribute update(UUID id, AttributeUpdateRequest attributeRequest){
-        isExist(attributeRequest.getName());
         validation(attributeRequest.getName(), id);
 
         Attribute attribute = attrRepo.findById(id).get();
@@ -51,14 +51,17 @@ public class AttributeService {
     }
 
     private void validation(String name, UUID id){
-        if(attrRepo.findByName(name).isPresent())
-            if(attrRepo.findByName(name).get().getId() != id)
-                throw new DuplicateDataException("Attribute name already exist");
+        if(!attrRepo.existsById(id)){
+            throw new EntityNotFoundException("Attribute not found");
+        }
+
+        if (attrRepo.existsByName(name) && !attrRepo.findByName(name).get().getId().equals(id))
+            throw new DuplicateDataException("Attribute name already exist");
     }
 
     private void isExist(String name){
-        if(!attrRepo.existsByName(name))
-            throw new EntityNotFoundException("Attribute not found");
+        if(attrRepo.existsByName(name))
+            throw new DuplicateDataException("Attribute name already exist");
     }
 
 }
