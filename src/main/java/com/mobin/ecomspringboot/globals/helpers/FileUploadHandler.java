@@ -26,7 +26,7 @@ public class FileUploadHandler {
     public FileUploadHandler() throws IOException {
     }
 
-    public String fileUpload(MultipartFile multipartFile) throws IOException {
+    public String fileUpload(MultipartFile multipartFile) throws IOException  {
 
         if(multipartFile.getSize() >= 1048576){
             throw new FileUploadException("File limit exceed");
@@ -37,7 +37,7 @@ public class FileUploadHandler {
         String extension = uploadFileName.substring(index + 1);
 
         if(!isAllowTheExtension(extension)){
-            throw new FileUploadException("Extension Not Allowed");
+            throw new FileUploadException("File Extension Not Allowed");
         }
 
         String fileName = UUID.randomUUID()+"."+extension;

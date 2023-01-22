@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.v1.inventory.services;
 
+import com.mobin.ecomspringboot.exceptions.DuplicateDataException;
 import com.mobin.ecomspringboot.globals.enumerates.Currency;
 import com.mobin.ecomspringboot.globals.enumerates.ProductStatus;
 import com.mobin.ecomspringboot.globals.enumerates.ProductStock;
@@ -13,6 +14,7 @@ import com.mobin.ecomspringboot.v1.generals.repositories.AttributeValueRepositor
 import com.mobin.ecomspringboot.v1.generals.repositories.UnitRepository;
 import com.mobin.ecomspringboot.v1.inventory.entity.*;
 import com.mobin.ecomspringboot.v1.inventory.repositories.*;
+import com.mobin.ecomspringboot.validators.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.*;
 
 @Service
@@ -36,6 +37,7 @@ public class ProductService {
     private final AttributeValueRepository attrValueRepo;
     private final ProductVariationRepository productVarRepo;
     private final FileUploadHandler fileUploadHandler;
+    private final ProductValidation productValidation;
 
     public List<Product> products(){
         return productRepo.findAll();
@@ -89,28 +91,34 @@ public class ProductService {
 
         List<ProductImage> productImageList = new ArrayList<>();
 
-        for (int i = 0; i < moreImages.size(); i++) {
-            String imageUri = fileUploadHandler.fileUpload(moreImages.get(i));
-            ProductImage productImage = new ProductImage();
-            productImage.setImage(imageUri);
-            productImage.setProduct(storeProduct);
-            productImgRepo.save(productImage);
-            productImageList.add(productImage);
-        }
-        storeProduct.setProductImages(productImageList);
-
-
-        if(isAdvance && attrName.size() == attrValue.size()){
-
-            if(attrName.size() < 2){
-                throw new RuntimeException("An attribute name should have an attribute value");
+        if(moreImages != null){
+            for (int i = 0; i < moreImages.size(); i++) {
+                String imageUri = fileUploadHandler.fileUpload(moreImages.get(i));
+                ProductImage productImage = new ProductImage();
+                productImage.setImage(imageUri);
+                productImage.setProduct(storeProduct);
+                productImgRepo.save(productImage);
+                productImageList.add(productImage);
             }
+            storeProduct.setProductImages(productImageList);
+        }
 
-            int minSize = Math.min(attrName.size(), attrValue.size());
+
+        if(isAdvance && attrName.size() != attrValue.size()) {
+            throw new RuntimeException("Attribute name and value size mismatch");
+        }
+
+        if(attrName.size() < 2){
+            throw new RuntimeException("An attribute name should have an attribute value");
+        }
+
+        if(isAdvance){
+            int minSize = attrName.size();
             minSize = Math.min(minSize, advPurchasePrice.size());
             minSize = Math.min(minSize, advRegularPrice.size());
             minSize = Math.min(minSize, advDiscountPrice.size());
             minSize = Math.min(minSize, advQuantity.size());
+
             for (int i = 0; i < minSize; i++) {
                 ProductVariation variation = new ProductVariation();
 
@@ -128,30 +136,7 @@ public class ProductService {
                 variation.setQuantity(advQuantity.get(i));
                 productVarRepo.save(variation);
             }
-
-//            for (int i = 0; i < attrName.size(); i++) {
-//                getAttributeValue(attrName.get(i), attrValue.get(i));
-//
-//                ProductVariation variation = new ProductVariation();
-//
-//                Map<String, String> Var1attr1 = new HashMap<>();
-//                Var1attr1.put(attrName.get(i),attrValue.get(i));
-//                Map<String, String> Var1attr2 = new HashMap<>();
-//                Var1attr2.put(attrName.get(i+1),attrValue.get(i+1));
-//                //marge two attributes into string
-//                variation.setAttributes(Var1attr1 +","+ Var1attr2);
-//                variation.setProduct(storeProduct);
-//                variation.setPurchasePrice(advPurchasePrice.get(i));
-//                variation.setRegularPrice(advRegularPrice.get(i));
-//                variation.setDiscountPrice(advDiscountPrice.get(i));
-//                variation.setQuantity(advQuantity.get(i));
-//
-//                productVarRepo.save(variation);
-//            }
-        }else{
-            throw new RuntimeException("Attribute Name and value size mismatch");
         }
-
 
         return storeProduct;
     }

@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -57,7 +58,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return super.handleMissingServletRequestParameter(ex, headers, status, request);
+//        return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(ex.getMessage())), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(Objects.requireNonNull(ex.getMessage()))), HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -129,7 +131,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(FileUploadException.class)
     public ResponseEntity<ApiErrorModel> FileUploadException(FileUploadException ex) {
-        return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(ex.getMessage())), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(ex.getMessage())), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UnwantedRequestException.class)
+    public ResponseEntity<ApiErrorModel> UnwantedRequestException(UnwantedRequestException ex) {
+        return new ResponseEntity<>(new ApiErrorModel(400, ex.getMessage(), List.of(ex.getMessage())), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -1,5 +1,6 @@
 package com.mobin.ecomspringboot.v1.inventory.controller;
 
+import com.mobin.ecomspringboot.exceptions.UnwantedRequestException;
 import com.mobin.ecomspringboot.globals.apis.v1.ApiEndpoints;
 import com.mobin.ecomspringboot.globals.enumerates.Currency;
 import com.mobin.ecomspringboot.globals.enumerates.ProductStatus;
@@ -7,15 +8,18 @@ import com.mobin.ecomspringboot.globals.enumerates.ProductStock;
 import com.mobin.ecomspringboot.v1.inventory.entity.Product;
 import com.mobin.ecomspringboot.v1.inventory.models.request.ProductRequest;
 import com.mobin.ecomspringboot.v1.inventory.services.ProductService;
+import com.mobin.ecomspringboot.validators.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +31,7 @@ import java.util.UUID;
 @Validated
 public class ProductController {
     private final ProductService productService;
+    private final ProductValidation productValidation;
 
     @GetMapping(ApiEndpoints.PRODUCTS_API)
     public ResponseEntity<List<Product>> index(){
@@ -46,11 +51,11 @@ public class ProductController {
                                          @RequestParam Double purchasePrice,
                                          @RequestParam Double regularPrice,
                                          @RequestParam Double discountPrice,
-                                         @Valid @NotNull @RequestParam Integer quantity,
+                                         @RequestParam Integer quantity,
                                          @RequestParam boolean isFeature,
                                          @RequestParam boolean isAdvance,
                                          @Valid @NotNull @RequestParam MultipartFile thumbImage,
-                                         @RequestParam List<MultipartFile> moreImages,
+                                         @RequestParam @Nullable List<MultipartFile> moreImages,
                                          @RequestParam List<String> attrName,
                                          @RequestParam List<String> attrValue,
                                          @RequestParam List<Double> advPurchasePrice,
@@ -58,6 +63,25 @@ public class ProductController {
                                          @RequestParam List<Double> advDiscountPrice,
                                          @RequestParam List<Integer> advQuantity
     ) throws IOException {
+
+        if(thumbImage.isEmpty()){
+            throw new UnwantedRequestException("Thumbnail image required");
+        }
+
+        int minSize = Math.min(attrName.size(), attrValue.size());
+        minSize = Math.min(minSize, advPurchasePrice.size());
+        minSize = Math.min(minSize, advRegularPrice.size());
+        minSize = Math.min(minSize, advDiscountPrice.size());
+        minSize = Math.min(minSize, advQuantity.size());
+
+        if(isAdvance){
+            for (int i = 0; i < minSize; i++) {
+                productValidation.productValidation(name, advPurchasePrice.get(i), advRegularPrice.get(i), advDiscountPrice.get(i), advQuantity.get(i));
+            }
+
+        }else{
+            productValidation.productValidation(name, purchasePrice, regularPrice, discountPrice, quantity);
+        }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(
                 categoryId,
