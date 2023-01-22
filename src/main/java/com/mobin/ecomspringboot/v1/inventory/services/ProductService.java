@@ -142,6 +142,51 @@ public class ProductService {
     }
 
 
+    public Product update(UUID categoryId,
+                        UUID subCategoryId,
+                        UUID brandId,
+                        UUID unitId,
+                        Currency currency,
+                        ProductStatus productStatus,
+                        ProductStock stockStatus,
+                        String name,
+                        Double purchasePrice,
+                        Double regularPrice,
+                        Double discountPrice,
+                        Integer quantity,
+                        boolean isFeature,
+                        boolean isAdvance,
+                        MultipartFile thumbImage,
+                        UUID productId
+    ) throws IOException {
+        Product product = show(productId);
+        product.setCategory(checkCategory(categoryId));
+        product.setSubCategory(checkSubCategory(subCategoryId));
+        product.setBrand(checkBrand(brandId));
+        product.setUnit(checkUnit(unitId));
+        product.setCurrency(currency.name());
+        product.setProductStatus(productStatus.name());
+        product.setStockStatus(stockStatus.name());
+        product.setName(name);
+        product.setSlug(Slugable.toSlug(name));
+        product.setAdvanced(isAdvance);
+        if(!isAdvance){
+            if(productVarRepo.findByProductId(productId).isPresent()){
+                productVarRepo.deleteByProductId(productId);
+            }
+
+            product.setPurchasePrice(purchasePrice);
+            product.setRegularPrice(regularPrice);
+            product.setDiscountPrice(discountPrice);
+            product.setQuantity(quantity);
+        }
+
+        product.setFeatured(isFeature);
+        product.setThumbImage(fileUploadHandler.fileUpload(thumbImage));
+        return productRepo.save(product);
+    }
+
+
     public Product show(UUID id){
         return productRepo.findById(id).orElseThrow(()->{throw new EntityNotFoundException("Product Not Found");});
     }

@@ -108,4 +108,58 @@ public class ProductController {
                 advQuantity
                 ));
     }
+
+
+    @GetMapping(ApiEndpoints.SINGLE_PRODUCTS_API)
+    public ResponseEntity<Product> show(@PathVariable UUID id){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.show(id));
+    }
+
+
+    @PutMapping(ApiEndpoints.PRODUCTS_UPDATE_API)
+    public ResponseEntity<Product> update(@Valid @NotNull @RequestParam UUID categoryId,
+                                         @Valid @NotNull @RequestParam UUID subCategoryId,
+                                         @Valid @NotNull @RequestParam UUID brandId,
+                                         @Valid @NotNull @RequestParam UUID unitId,
+                                         @Valid @NotNull @RequestParam Currency currency,
+                                         @Valid @NotNull @RequestParam ProductStatus productStatus,
+                                         @Valid @NotNull @RequestParam ProductStock stockStatus,
+                                         @Valid @NotNull @RequestParam String name,
+                                         @RequestParam Double purchasePrice,
+                                         @RequestParam Double regularPrice,
+                                         @RequestParam Double discountPrice,
+                                         @RequestParam Integer quantity,
+                                         @RequestParam boolean isFeature,
+                                         @RequestParam boolean isAdvance,
+                                         @Valid @NotNull @RequestParam MultipartFile thumbImage,
+                                         @PathVariable UUID productId
+    ) throws IOException {
+
+        if(thumbImage.isEmpty()) {
+            throw new UnwantedRequestException("Thumbnail image required");
+        }
+
+        if(!isAdvance){
+            productValidation.productValidation(name, purchasePrice, regularPrice, discountPrice, quantity);
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productService.update(
+                categoryId,
+                subCategoryId,
+                brandId,
+                unitId,
+                currency,
+                productStatus,
+                stockStatus,
+                name,
+                purchasePrice,
+                regularPrice,
+                discountPrice,
+                quantity,
+                isFeature,
+                isAdvance,
+                thumbImage,
+                productId
+        ));
+    }
 }
